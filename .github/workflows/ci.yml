@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-patches:
+    name: Check patches
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Get original VS Code Copilot source
+        run: python scripts/get_original.py
+
+      - name: Check patches can be applied cleanly
+        run: python scripts/apply_patches.py --check --yes
+
+  apply-patches:
+    name: Apply patches
+    needs: [check-patches]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Get original VS Code Copilot source
+        run: python scripts/get_original.py
+
+      - name: Apply all patches
+        run: python scripts/apply_patches.py --yes
+
+      - name: Upload patched source as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: patched-copilot
+          path: original/extensions/copilot/
+          if-no-files-found: error
