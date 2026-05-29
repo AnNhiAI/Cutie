@@ -1,0 +1,18 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Patch files
+*.patch text
+
+# Source code
+*.ts text diff=typescript
+*.js text
+*.json text
+*.md text diff=markdown
+
+# Binary files
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.vsix binary
