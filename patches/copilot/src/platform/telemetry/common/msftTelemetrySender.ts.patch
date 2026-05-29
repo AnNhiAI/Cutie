@@ -1,7 +1,7 @@
---- a/original/extensions/copilot/src/platform/telemetry/common/msftTelemetrySender.ts	2026-05-30 00:58:56.069840400 +0700
-+++ b/patches/copilot/src/platform/telemetry/common/msftTelemetrySender.ts	2026-05-30 00:58:21.042208600 +0700
+--- a/original/extensions/copilot/src/platform/telemetry/common/msftTelemetrySender.ts
++++ b/original/extensions/copilot/src/platform/telemetry/common/msftTelemetrySender.ts
 @@ -4,111 +4,41 @@
-  *--------------------------------------------------------------------------------------------*/
+ *--------------------------------------------------------------------------------------------*/
  
  import { DisposableStore } from '../../../util/vs/base/common/lifecycle';
 -import { CopilotToken } from '../../authentication/common/copilotToken';

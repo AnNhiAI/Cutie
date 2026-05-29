@@ -1,8 +1,8 @@
---- a/original/extensions/copilot/src/platform/telemetry/vscode-node/telemetryServiceImpl.ts	2026-05-30 01:28:02.852946000 +0700
-+++ b/patches/copilot/src/platform/telemetry/vscode-node/telemetryServiceImpl.ts	2026-05-30 01:28:02.852946000 +0700
+--- a/original/extensions/copilot/src/platform/telemetry/vscode-node/telemetryServiceImpl.ts
++++ b/original/extensions/copilot/src/platform/telemetry/vscode-node/telemetryServiceImpl.ts
 @@ -3,18 +3,13 @@
-  *  Licensed under the MIT License. See License.txt in the project root for license information.
-  *--------------------------------------------------------------------------------------------*/
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
  
 -import { CustomFetcher } from '@vscode/extension-telemetry';
 -import { IInstantiationService } from '../../../util/vs/platform/instantiation/common/instantiation';

@@ -1,8 +1,8 @@
---- a/original/extensions/copilot/src/extension/telemetry/vscode/githubTelemetryForwardingContrib.ts	2026-05-30 01:28:02.934801700 +0700
-+++ b/patches/copilot/src/extension/telemetry/vscode/githubTelemetryForwardingContrib.ts	2026-05-30 01:28:02.935802300 +0700
+--- a/original/extensions/copilot/src/extension/telemetry/vscode/githubTelemetryForwardingContrib.ts
++++ b/original/extensions/copilot/src/extension/telemetry/vscode/githubTelemetryForwardingContrib.ts
 @@ -3,59 +3,12 @@
-  *  Licensed under the MIT License. See License.txt in the project root for license information.
-  *--------------------------------------------------------------------------------------------*/
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
  
 -import { env } from 'vscode';
 -import { getGitHubRepoInfoFromContext, GithubRepoId, IGitService } from '../../../platform/git/common/gitService';

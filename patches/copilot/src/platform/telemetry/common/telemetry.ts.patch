@@ -1,5 +1,5 @@
---- a/original/extensions/copilot/src/platform/telemetry/common/telemetry.ts	2026-05-30 00:58:56.016610200 +0700
-+++ b/patches/copilot/src/platform/telemetry/common/telemetry.ts	2026-05-30 00:58:03.133493900 +0700
+--- a/original/extensions/copilot/src/platform/telemetry/common/telemetry.ts
++++ b/original/extensions/copilot/src/platform/telemetry/common/telemetry.ts
 @@ -10,7 +10,6 @@
  import type { TelemetryData } from './telemetryData';
  

@@ -87,6 +87,7 @@ def check_patch_available() -> bool:
         result = subprocess.run(
             ["patch", "--version"],
             capture_output=True, text=True,
+            shell=True,
         )
         return result.returncode == 0
     except FileNotFoundError:
@@ -106,28 +107,23 @@ def apply_single_patch(
     """
     Apply (or reverse) a single patch file using the `patch` command.
 
-    The `---` line inside the patch is of the form:
-        a/original/extensions/copilot/src/foo.ts
-
-    We use `-p1` to strip the `a/` prefix, leaving:
-        original/extensions/copilot/src/foo.ts
-
     Returns True on success, False on failure.
     """
-    cmd = ["patch", "-p1", "--batch"]
+    cmd = ["patch", "-p1", "--batch", "--forward"]
 
     if reverse:
         cmd.append("-R")
     if check:
         cmd.append("--dry-run")
 
-    cmd.extend(["-i", patch_path.as_posix()])
+    cmd.extend(["-i", str(patch_path)])
 
     try:
         result = subprocess.run(
             cmd,
             capture_output=True, text=True,
             cwd=str(PROJECT_ROOT),
+            shell=True,
         )
     except FileNotFoundError:
         err("  ERROR: `patch` command is not available.")
@@ -139,19 +135,6 @@ def apply_single_patch(
             log(f"  ✓ {action}")
         return True
     else:
-        # --dry-run with --batch exits 1 when patch is already applied / reversed
-        already_applied = (
-            "Reversed (or previously applied) patch detected" in result.stdout
-            or "Reversed (or previously applied) patch detected" in result.stderr
-        )
-        if already_applied:
-            if reverse:
-                log(f"  ⚠ Not applied (patch not in forward state)")
-            else:
-                log(f"  ⚠ Already applied")
-            # Not a real failure — the patch is already in the desired state
-            return True
-
         if check:
             log(f"  ✗ Would fail")
         else:

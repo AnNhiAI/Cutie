@@ -1,5 +1,5 @@
---- a/original/extensions/copilot/src/platform/telemetry/node/azureInsights.ts	2026-05-30 01:27:26.605608600 +0700
-+++ b/patches/copilot/src/platform/telemetry/node/azureInsights.ts	2026-05-30 01:27:26.605608600 +0700
+--- a/original/extensions/copilot/src/platform/telemetry/node/azureInsights.ts
++++ b/original/extensions/copilot/src/platform/telemetry/node/azureInsights.ts
 @@ -8,9 +8,7 @@
  import { ICAPIClientService } from '../../endpoint/common/capiClient';
  import { IEnvService } from '../../env/common/envService';

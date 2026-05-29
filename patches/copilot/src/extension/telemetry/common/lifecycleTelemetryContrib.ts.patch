@@ -1,5 +1,5 @@
 --- a/original/extensions/copilot/src/extension/telemetry/common/lifecycleTelemetryContrib.ts
-+++ b/patches/copilot/src/extension/telemetry/common/lifecycleTelemetryContrib.ts
++++ b/original/extensions/copilot/src/extension/telemetry/common/lifecycleTelemetryContrib.ts
 @@ -1,14 +1,15 @@
  /*---------------------------------------------------------------------------------------------
   *  Copyright (c) Microsoft Corporation. All rights reserved.
@@ -10,14 +10,19 @@
  import { IExtensionContribution } from '../../common/contributions';
  
  export class LifecycleTelemetryContrib implements IExtensionContribution {
- 	constructor(
+-	constructor(
 -		@ITelemetryService private readonly telemetryService: ITelemetryService
-+		// Telemetry removed
- 	) {
+-	) {
 -		telemetryService.sendGHTelemetryEvent('extension.activate');
- 	}
+-	}
++    constructor(
++        // Telemetry removed
++    ) {
++    }
  
- 	dispose(): void {
+-	dispose(): void {
 -		this.telemetryService.sendGHTelemetryEvent('extension.deactivate');
- 	}
+-	}
++    dispose(): void {
++    }
  }

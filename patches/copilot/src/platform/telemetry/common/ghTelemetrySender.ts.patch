@@ -1,7 +1,7 @@
---- a/original/extensions/copilot/src/platform/telemetry/common/ghTelemetrySender.ts	2026-05-30 00:58:56.059833700 +0700
-+++ b/patches/copilot/src/platform/telemetry/common/ghTelemetrySender.ts	2026-05-30 00:58:21.042208600 +0700
+--- a/original/extensions/copilot/src/platform/telemetry/common/ghTelemetrySender.ts
++++ b/original/extensions/copilot/src/platform/telemetry/common/ghTelemetrySender.ts
 @@ -4,22 +4,16 @@
-  *--------------------------------------------------------------------------------------------*/
+ *--------------------------------------------------------------------------------------------*/
  
  import type { TelemetryLogger } from 'vscode';
 -import { redactPaths } from '../../../util/common/pathRedaction';

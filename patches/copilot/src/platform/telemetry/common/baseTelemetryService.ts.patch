@@ -1,5 +1,5 @@
---- a/original/extensions/copilot/src/platform/telemetry/common/baseTelemetryService.ts	2026-05-30 00:58:56.040050500 +0700
-+++ b/patches/copilot/src/platform/telemetry/common/baseTelemetryService.ts	2026-05-30 00:58:03.149240100 +0700
+--- a/original/extensions/copilot/src/platform/telemetry/common/baseTelemetryService.ts
++++ b/original/extensions/copilot/src/platform/telemetry/common/baseTelemetryService.ts
 @@ -12,8 +12,6 @@
  
  export class BaseTelemetryService implements ITelemetryService {

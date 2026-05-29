@@ -1,8 +1,8 @@
---- a/original/extensions/copilot/src/platform/telemetry/node/azureInsightsReporter.ts	2026-05-30 01:27:26.621160200 +0700
-+++ b/patches/copilot/src/platform/telemetry/node/azureInsightsReporter.ts	2026-05-30 01:27:26.621671900 +0700
+--- a/original/extensions/copilot/src/platform/telemetry/node/azureInsightsReporter.ts
++++ b/original/extensions/copilot/src/platform/telemetry/node/azureInsightsReporter.ts
 @@ -3,19 +3,13 @@
-  *  Licensed under the MIT License. See License.txt in the project root for license information.
-  *--------------------------------------------------------------------------------------------*/
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
  
 -// Need to set this env variable even before import to avoid stat beat
 -process.env.APPLICATION_INSIGHTS_NO_STATSBEAT = 'true';

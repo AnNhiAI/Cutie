@@ -1,8 +1,8 @@
---- a/original/extensions/copilot/src/platform/telemetry/vscode-node/githubTelemetrySender.ts	2026-05-30 01:27:48.399867700 +0700
-+++ b/patches/copilot/src/platform/telemetry/vscode-node/githubTelemetrySender.ts	2026-05-30 01:27:48.399867700 +0700
+--- a/original/extensions/copilot/src/platform/telemetry/vscode-node/githubTelemetrySender.ts
++++ b/original/extensions/copilot/src/platform/telemetry/vscode-node/githubTelemetrySender.ts
 @@ -3,205 +3,15 @@
-  *  Licensed under the MIT License. See License.txt in the project root for license information.
-  *--------------------------------------------------------------------------------------------*/
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
  
 -import { AppInsightsClientOptions, CustomFetcher, TelemetryReporter } from '@vscode/extension-telemetry';
 -import * as os from 'os';

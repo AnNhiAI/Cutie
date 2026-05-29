@@ -1,5 +1,5 @@
---- a/original/extensions/copilot/src/platform/telemetry/common/failingTelemetryReporter.ts	2026-05-30 01:27:26.198681300 +0700
-+++ b/patches/copilot/src/platform/telemetry/common/failingTelemetryReporter.ts	2026-05-30 01:27:26.198681300 +0700
+--- a/original/extensions/copilot/src/platform/telemetry/common/failingTelemetryReporter.ts
++++ b/original/extensions/copilot/src/platform/telemetry/common/failingTelemetryReporter.ts
 @@ -7,10 +7,10 @@
  
  export class FailingTelemetryReporter implements TelemetrySender {

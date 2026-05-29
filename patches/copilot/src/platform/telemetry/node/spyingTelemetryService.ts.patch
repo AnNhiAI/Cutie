@@ -1,5 +1,5 @@
---- a/original/extensions/copilot/src/platform/telemetry/node/spyingTelemetryService.ts	2026-05-30 01:27:26.689452300 +0700
-+++ b/patches/copilot/src/platform/telemetry/node/spyingTelemetryService.ts	2026-05-30 01:27:26.690448900 +0700
+--- a/original/extensions/copilot/src/platform/telemetry/node/spyingTelemetryService.ts
++++ b/original/extensions/copilot/src/platform/telemetry/node/spyingTelemetryService.ts
 @@ -35,36 +35,36 @@
  	}
  

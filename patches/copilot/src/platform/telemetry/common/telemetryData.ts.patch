@@ -1,5 +1,5 @@
---- a/original/extensions/copilot/src/platform/telemetry/common/telemetryData.ts	2026-05-30 00:58:56.022610400 +0700
-+++ b/patches/copilot/src/platform/telemetry/common/telemetryData.ts	2026-05-30 00:58:03.141338300 +0700
+--- a/original/extensions/copilot/src/platform/telemetry/common/telemetryData.ts
++++ b/original/extensions/copilot/src/platform/telemetry/common/telemetryData.ts
 @@ -38,24 +38,14 @@
  		return new TelemetryData(properties || {}, measurements || {}, Date.now());
  	}

@@ -1,8 +1,8 @@
---- a/original/extensions/copilot/src/platform/telemetry/vscode-node/microsoftTelemetrySender.ts	2026-05-30 01:27:48.494505700 +0700
-+++ b/patches/copilot/src/platform/telemetry/vscode-node/microsoftTelemetrySender.ts	2026-05-30 01:27:48.494505700 +0700
+--- a/original/extensions/copilot/src/platform/telemetry/vscode-node/microsoftTelemetrySender.ts
++++ b/original/extensions/copilot/src/platform/telemetry/vscode-node/microsoftTelemetrySender.ts
 @@ -3,7 +3,6 @@
-  *  Licensed under the MIT License. See License.txt in the project root for license information.
-  *--------------------------------------------------------------------------------------------*/
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
  
 -import { CustomFetcher, TelemetryReporter } from '@vscode/extension-telemetry';
  import { ICopilotTokenStore } from '../../authentication/common/copilotTokenStore';
