@@ -1,0 +1,34 @@
+--- a/original/extensions/copilot/src/platform/telemetry/vscode-node/microsoftTelemetrySender.ts	2026-05-30 01:27:48.494505700 +0700
++++ b/patches/copilot/src/platform/telemetry/vscode-node/microsoftTelemetrySender.ts	2026-05-30 01:27:48.494505700 +0700
+@@ -3,7 +3,6 @@
+  *  Licensed under the MIT License. See License.txt in the project root for license information.
+  *--------------------------------------------------------------------------------------------*/
+ 
+-import { CustomFetcher, TelemetryReporter } from '@vscode/extension-telemetry';
+ import { ICopilotTokenStore } from '../../authentication/common/copilotTokenStore';
+ import { BaseMsftTelemetrySender } from '../common/msftTelemetrySender';
+ 
+@@ -12,15 +11,14 @@
+ 		internalAIKey: string,
+ 		externalAIKey: string,
+ 		tokenStore: ICopilotTokenStore,
+-		customFetcher: CustomFetcher
++		customFetcher: any
+ 	) {
+-		const telemetryReporterFactory = (internal: boolean) => {
+-			if (internal) {
+-				return new TelemetryReporter(internalAIKey, undefined, undefined, customFetcher);
+-			} else {
+-				return new TelemetryReporter(externalAIKey, undefined, undefined, customFetcher);
+-			}
+-		};
+-		super(tokenStore, telemetryReporterFactory);
++		// Telemetry removed - use no-op factory
++		super(tokenStore, () => ({
++			sendRawTelemetryEvent() { },
++			sendTelemetryEvent() { },
++			sendTelemetryErrorEvent() { },
++			dispose() { }
++		}) as any);
+ 	}
+ }

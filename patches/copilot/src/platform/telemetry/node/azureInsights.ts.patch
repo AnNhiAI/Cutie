@@ -1,0 +1,39 @@
+--- a/original/extensions/copilot/src/platform/telemetry/node/azureInsights.ts	2026-05-30 01:27:26.605608600 +0700
++++ b/patches/copilot/src/platform/telemetry/node/azureInsights.ts	2026-05-30 01:27:26.605608600 +0700
+@@ -8,9 +8,7 @@
+ import { ICAPIClientService } from '../../endpoint/common/capiClient';
+ import { IEnvService } from '../../env/common/envService';
+ import { IGHTelemetryService } from '../common/telemetry';
+-import { AzureInsightReporter } from './azureInsightsReporter';
+ 
+-// the application insights key (also known as instrumentation key)
+ export const APP_INSIGHTS_KEY_STANDARD = '7d7048df-6dd0-4048-bb23-b716c1461f8f';
+ export const APP_INSIGHTS_KEY_ENHANCED = '3fdd7f28-937a-48c8-9a21-ba337db23bd1';
+ 
+@@ -22,24 +20,6 @@
+ 	telemetryNamespace: string,
+ 	telemetryEnabled: boolean
+ ): Promise<IDisposable | undefined> {
+-	const container = telemetryService;
+-	await container.deactivate();
+-	if (!telemetryEnabled) {
+-		return;
+-	}
+-
+-	const reporter = new AzureInsightReporter(capiClientService, envService, tokenStore, telemetryNamespace, APP_INSIGHTS_KEY_STANDARD);
+-	const reporterSecure = new AzureInsightReporter(capiClientService, envService, tokenStore, telemetryNamespace, APP_INSIGHTS_KEY_ENHANCED);
+-
+-	container.setReporter(reporter);
+-	container.setSecureReporter(reporterSecure);
+-
+-	return {
+-		dispose() {
+-			container.setReporter(undefined);
+-			container.setSecureReporter(undefined);
+-			reporter.flush();
+-			reporterSecure.flush();
+-		}
+-	};
++	// Telemetry removed
++	return undefined;
+ }

@@ -1,0 +1,98 @@
+--- a/original/extensions/copilot/src/platform/telemetry/node/spyingTelemetryService.ts	2026-05-30 01:27:26.689452300 +0700
++++ b/patches/copilot/src/platform/telemetry/node/spyingTelemetryService.ts	2026-05-30 01:27:26.690448900 +0700
+@@ -35,36 +35,36 @@
+ 	}
+ 
+ 	sendInternalMSFTTelemetryEvent(eventName: string, properties?: TelemetryEventProperties | undefined, measurements?: TelemetryEventMeasurements | undefined): void {
+-		this.addEvent(TelemetryServiceEventType.internal, eventName, properties, measurements);
++		// Telemetry removed
+ 	}
+ 	sendMSFTTelemetryEvent(eventName: string, properties?: TelemetryEventProperties | undefined, measurements?: TelemetryEventMeasurements | undefined): void {
+-		this.addEvent(TelemetryServiceEventType.default, eventName, properties, measurements);
++		// Telemetry removed
+ 	}
+ 	sendMSFTTelemetryErrorEvent(eventName: string, properties?: TelemetryEventProperties | undefined, measurements?: TelemetryEventMeasurements | undefined): void {
+-		this.addEvent(TelemetryServiceEventType.error, eventName, properties, measurements);
++		// Telemetry removed
+ 	}
+ 	sendGHTelemetryEvent(eventName: string, properties?: TelemetryEventProperties | undefined, measurements?: TelemetryEventMeasurements | undefined): void {
+-		this.addEvent(TelemetryServiceEventType.default, eventName, properties, measurements);
++		// Telemetry removed
+ 	}
+ 	sendEnhancedGHTelemetryEvent(eventName: string, properties?: TelemetryEventProperties | undefined, measurements?: TelemetryEventMeasurements | undefined): void {
+-		this.addEvent(TelemetryServiceEventType.internal, eventName, properties, measurements);
++		// Telemetry removed
+ 	}
+ 	sendEnhancedGHTelemetryErrorEvent(eventName: string, properties?: TelemetryEventProperties | undefined, measurements?: TelemetryEventMeasurements | undefined): void {
+-		this.addEvent(TelemetryServiceEventType.internal, eventName, properties, measurements);
++		// Telemetry removed
+ 	}
+ 	sendGHTelemetryErrorEvent(eventName: string, properties?: TelemetryEventProperties | undefined, measurements?: TelemetryEventMeasurements | undefined): void {
+-		this.addEvent(TelemetryServiceEventType.error, eventName, properties, measurements);
++		// Telemetry removed
+ 	}
+ 
+ 	sendGHTelemetryException(maybeError: unknown, origin: string): void {
+-		this.addEvent(TelemetryServiceEventType.error, 'exception', { origin, error: String(maybeError) });
++		// Telemetry removed
+ 	}
+ 
+ 	private readonly telemetryServiceEvents: InterceptedTelemetryServiceEvent[] = [];
+ 	private readonly telemetrySenderEvents: InterceptedTelemetrySenderEvent[] = [];
+ 
+ 	sendInternalTelemetryEvent(eventName: string, properties?: TelemetryEventProperties | undefined, measurements?: TelemetryEventMeasurements | undefined): void {
+-		this.addEvent(TelemetryServiceEventType.internal, eventName, properties, measurements);
++		// Telemetry removed
+ 	}
+ 	postEvent(eventName: string, props: Map<string, string>): void {
+ 		// Do nothing
+@@ -76,36 +76,14 @@
+ 		// Do nothing
+ 	}
+ 	sendTelemetryErrorEvent(eventName: string, destination: TelemetryDestination, properties?: TelemetryEventProperties | undefined, measurements?: TelemetryEventMeasurements | undefined): void {
+-		this.addEvent(TelemetryServiceEventType.error, eventName, properties, measurements);
++		// Telemetry removed
+ 	}
+ 	sendTelemetryEvent(eventName: string, destination: TelemetryDestination, properties?: TelemetryEventProperties | undefined, measurements?: TelemetryEventMeasurements | undefined): void {
+-		this.addEvent(TelemetryServiceEventType.default, eventName, properties, measurements);
+-	}
+-
+-	private addEvent(eventType: TelemetryServiceEventType, eventName: string, properties?: TelemetryEventProperties | undefined, measurements?: TelemetryEventMeasurements | undefined): void {
+-		{
+-			// create a copy, in case the caller modifies the object after calling this method
+-			this.telemetryServiceEvents.push({
+-				eventType,
+-				eventName,
+-				properties: properties ? { ...properties } : undefined,
+-				measurements: measurements ? { ...measurements } : undefined
+-			});
+-		}
++		// Telemetry removed
+ 	}
+ 
+ 	public installSpyingSenders(ghTelemetry: IGHTelemetryService) {
+-		const senderEvents = this.telemetrySenderEvents;
+-		const getSender = (eventType: TelemetrySenderEventType) => ({
+-			sendEventData(eventName: string, data?: Record<string, any> | undefined): void {
+-				senderEvents.push({ eventType, eventName, data: { ...data } });
+-			},
+-			sendErrorData(error: Error, data?: Record<string, any> | undefined): void {
+-				senderEvents.push({ eventType, eventName: error.message || error.toString(), data });
+-			}
+-		});
+-		ghTelemetry.setReporter(getSender(TelemetrySenderEventType.insecure));
+-		ghTelemetry.setSecureReporter(getSender(TelemetrySenderEventType.secure));
++		// Telemetry removed
+ 	}
+ 
+ 	public getEvents(): { telemetryServiceEvents: ITelemetryEvent[]; telemetrySenderEvents: any[] } {
+@@ -116,8 +94,7 @@
+ 	}
+ 
+ 	public getFilteredEvents<TEventNames extends Partial<Record<TelemetryEventMap[keyof TelemetryEventMap]['eventName'], true>>>(eventNames: TEventNames): (TelemetryEventMap[TelemetryEventMapKeysFilteredByEventName<keyof TEventNames>])[] {
+-		const set = new Set(Object.keys(eventNames));
+-		return this.telemetryServiceEvents.filter(e => set.has(e.eventName as any)) as any;
++		return [];
+ 	}
+ }
+ 

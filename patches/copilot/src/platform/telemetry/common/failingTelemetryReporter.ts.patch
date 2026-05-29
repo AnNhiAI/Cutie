@@ -1,0 +1,15 @@
+--- a/original/extensions/copilot/src/platform/telemetry/common/failingTelemetryReporter.ts	2026-05-30 01:27:26.198681300 +0700
++++ b/patches/copilot/src/platform/telemetry/common/failingTelemetryReporter.ts	2026-05-30 01:27:26.198681300 +0700
+@@ -7,10 +7,10 @@
+ 
+ export class FailingTelemetryReporter implements TelemetrySender {
+ 	sendEventData(eventName: string, data?: Record<string, any> | undefined): void {
+-		throw new Error('Telemetry disabled');
++		// Telemetry removed
+ 	}
+ 	sendErrorData(error: Error, data?: Record<string, any> | undefined): void {
+-		throw new Error('Telemetry disabled');
++		// Telemetry removed
+ 	}
+ 	flush(): void | Thenable<void> {
+ 		return Promise.resolve();
