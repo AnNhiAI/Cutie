@@ -54,3 +54,27 @@ jobs:
           name: patched-copilot
           path: original/extensions/copilot/
           if-no-files-found: error
+
+  build-patched-copilot:
+    name: Build patched Copilot
+    needs: [apply-patches]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download patched source
+        uses: actions/download-artifact@v4
+        with:
+          name: patched-copilot
+          path: original/extensions/copilot/
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies and compile
+        run: |
+          cd original/extensions/copilot
+          npm install
+          npm run compile
