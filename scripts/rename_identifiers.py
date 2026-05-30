@@ -46,18 +46,21 @@ def rename_identifiers_in_value(value, depth=0):
         return value
 
 def main():
-    # Path to package.json
-    package_json_path = Path(__file__).parent.parent / 'original' / 'extensions' / 'copilot' / 'package.json'
+    # Paths to files
+    base_path = Path(__file__).parent.parent / 'original' / 'extensions' / 'copilot'
+    package_json_path = base_path / 'package.json'
+    package_nls_path = base_path / 'package.nls.json'
     
     if not package_json_path.exists():
         print(f"Error: {package_json_path} not found")
         return 1
     
+    # Process package.json
     print(f"Reading {package_json_path}...")
     with open(package_json_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
     
-    print("Renaming identifiers...")
+    print("Renaming identifiers in package.json...")
     
     # Rename in specific sections to avoid breaking things
     sections_to_rename = [
@@ -73,7 +76,34 @@ def main():
     with open(package_json_path, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
     
-    print("✓ Successfully renamed all identifiers")
+    # Process package.nls.json
+    if package_nls_path.exists():
+        print(f"\nReading {package_nls_path}...")
+        with open(package_nls_path, 'r', encoding='utf-8') as f:
+            nls_data = json.load(f)
+        
+        print("Renaming identifiers in package.nls.json...")
+        
+        # Rename keys and values in package.nls.json
+        new_nls_data = {}
+        for key, value in nls_data.items():
+            new_key = key
+            if 'github.copilot' in key:
+                new_key = key.replace('github.copilot', 'cutie')
+            elif key.startswith('copilot.'):
+                new_key = key.replace('copilot.', 'cutie.')
+            
+            # Also rename in values (for command links in messages)
+            new_value = rename_identifiers_in_value(value)
+            new_nls_data[new_key] = new_value
+        
+        print(f"Writing modified package.nls.json...")
+        with open(package_nls_path, 'w', encoding='utf-8') as f:
+            json.dump(new_nls_data, f, indent=2, ensure_ascii=False)
+        
+        print(f"✓ Renamed {len(new_nls_data)} translation keys")
+    
+    print("\n✓ Successfully renamed all identifiers")
     print("  github.copilot -> cutie")
     print("  copilot. -> cutie.")
     
