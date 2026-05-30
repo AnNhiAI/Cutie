@@ -13,8 +13,8 @@ from pathlib import Path
 def rename_identifiers_in_value(value, depth=0):
     """Recursively rename identifiers in JSON values."""
     if isinstance(value, str):
-        # Skip URLs and certain patterns
-        if 'http://' in value or 'https://' in value or 'github.com' in value:
+        # Skip URLs and certain patterns - check for URL schemes and img.shields.io
+        if 'http://' in value or 'https://' in value or 'github.com' in value or 'img.shields.io' in value:
             return value
         
         # Replace translation references like %github.copilot.xxx%
@@ -27,8 +27,12 @@ def rename_identifiers_in_value(value, depth=0):
         # Replace copilot. with cutie. (but not in URLs or other contexts)
         # Only replace if it's at the start or after a quote/space
         value = re.sub(r'\bcopilot\.', 'cutie.', value)
-        # Replace standalone copilot identifiers
-        value = re.sub(r'\bcopilot([A-Z])', r'cutie\1', value)  # copilotWelcome -> cutieWelcome
+        
+        # Skip replacing copilot[A-Z] patterns that refer to specific tools/features
+        # like copilotCLI, copilotDebugCommand, etc.
+        # Only replace copilot[A-Z] if it's NOT followed by CLI or DebugCommand
+        value = re.sub(r'\bcopilot(?!CLI|DebugCommand)([A-Z])', r'cutie\1', value)
+        
         return value
     elif isinstance(value, dict):
         # Also rename dictionary keys if they contain copilot identifiers
@@ -97,12 +101,7 @@ def main():
             elif key.startswith('copilot.'):
                 new_key = key.replace('copilot.', 'cutie.')
             
-            # Replace all copilot patterns in keys (order matters!)
-            # Replace specific patterns first, then general ones
-            new_key = new_key.replace('CopilotCLI', 'CutieCLI')
-            new_key = new_key.replace('copilotCLI', 'cutieCLI')
-            new_key = new_key.replace('Copilot', 'Cutie')
-            new_key = new_key.replace('copilot', 'cutie')
+            # Don't replace copilotCLI or CopilotCLI - they refer to GitHub Copilot CLI tool
             
             # Also rename in values (for command links in messages)
             new_value = rename_identifiers_in_value(value)
