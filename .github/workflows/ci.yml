@@ -62,14 +62,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Get original VS Code Copilot source
-        run: python scripts/get_original.py
-
       - name: Download patched source
         uses: actions/download-artifact@v4
         with:
