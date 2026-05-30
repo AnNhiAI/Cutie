@@ -67,6 +67,22 @@ The script discovers all `.patch` files recursively under `patches/`, reads the 
 path from each patch's `---` header line, and uses the `patch` command with `-p1` to
 apply it. If a patch has already been applied, it is detected and skipped gracefully.
 
+### `scripts/rename_identifiers.py`
+
+Renames all Copilot identifiers to Cutie identifiers in `package.json` to avoid conflicts with the original GitHub Copilot extension.
+
+```bash
+python scripts/rename_identifiers.py
+```
+
+This script modifies the `package.json` file to replace:
+- `github.copilot` → `cutie`
+- `copilot.` → `cutie.`
+- `copilot-chat` → `cutie-chat`
+- `copilotWelcome` → `cutieWelcome`
+
+This ensures that Cutie can be installed alongside the original Copilot extension without conflicts in commands, views, and other contribution points.
+
 ## Workflow
 
 ```bash
@@ -79,7 +95,10 @@ python scripts/apply_patches.py --check
 # 3. Apply all Cutie customizations
 python scripts/apply_patches.py
 
-# 4. (Optional) Revert patches and restore the original source
+# 4. Rename identifiers to avoid conflicts with original Copilot
+python scripts/rename_identifiers.py
+
+# 5. (Optional) Revert patches and restore the original source
 python scripts/apply_patches.py --reverse
 ```
 
