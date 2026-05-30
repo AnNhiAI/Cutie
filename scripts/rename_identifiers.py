@@ -17,6 +17,9 @@ def rename_identifiers_in_value(value, depth=0):
         if 'http://' in value or 'https://' in value or 'github.com' in value:
             return value
         
+        # Replace translation references like %github.copilot.xxx%
+        value = re.sub(r'%github\.copilot\.', r'%cutie.', value)
+        
         # Replace github.copilot with cutie
         value = value.replace('github.copilot', 'cutie')
         # Replace copilot-chat with cutie-chat
@@ -65,7 +68,8 @@ def main():
     # Rename in specific sections to avoid breaking things
     sections_to_rename = [
         'contributes',
-        'activationEvents'
+        'activationEvents',
+        'badges'
     ]
     
     for section in sections_to_rename:
