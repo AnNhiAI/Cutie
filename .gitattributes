@@ -3,6 +3,7 @@
 
 # Patch files
 *.patch text
+*.ts.patch linguist-language=TypeScript
 
 # Source code
 *.ts text diff=typescript
