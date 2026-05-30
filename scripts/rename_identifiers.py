@@ -97,9 +97,10 @@ def main():
             elif key.startswith('copilot.'):
                 new_key = key.replace('copilot.', 'cutie.')
             
-            # Replace all copilot patterns in keys
-            new_key = new_key.replace('copilotCLI', 'cutieCLI')
+            # Replace all copilot patterns in keys (order matters!)
+            # Replace specific patterns first, then general ones
             new_key = new_key.replace('CopilotCLI', 'CutieCLI')
+            new_key = new_key.replace('copilotCLI', 'cutieCLI')
             new_key = new_key.replace('Copilot', 'Cutie')
             new_key = new_key.replace('copilot', 'cutie')
             
