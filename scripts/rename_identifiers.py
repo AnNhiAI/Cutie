@@ -97,6 +97,12 @@ def main():
             elif key.startswith('copilot.'):
                 new_key = key.replace('copilot.', 'cutie.')
             
+            # Replace all copilot patterns in keys
+            new_key = new_key.replace('copilotCLI', 'cutieCLI')
+            new_key = new_key.replace('CopilotCLI', 'CutieCLI')
+            new_key = new_key.replace('Copilot', 'Cutie')
+            new_key = new_key.replace('copilot', 'cutie')
+            
             # Also rename in values (for command links in messages)
             new_value = rename_identifiers_in_value(value)
             new_nls_data[new_key] = new_value
