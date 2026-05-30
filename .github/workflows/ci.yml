@@ -48,6 +48,9 @@ jobs:
       - name: Apply all patches
         run: python scripts/apply_patches.py --yes
 
+      - name: Rename identifiers to avoid conflicts
+        run: python scripts/rename_identifiers.py
+
       - name: Upload patched source as artifact
         uses: actions/upload-artifact@v4
         with:
@@ -72,6 +75,9 @@ jobs:
 
       - name: Apply all patches
         run: python scripts/apply_patches.py --yes
+
+      - name: Rename identifiers to avoid conflicts
+        run: python scripts/rename_identifiers.py
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
