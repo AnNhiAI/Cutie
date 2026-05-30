@@ -1,0 +1,11 @@
+--- a/original/extensions/copilot/package.json
++++ b/original/extensions/copilot/package.json
+@@ -1,6 +1,6 @@
+ {
+-  "name": "copilot-chat",
+-  "displayName": "GitHub Copilot Chat",
++  "name": "copilot-chat-cutie",
++  "displayName": "GitHub Copilot Chat (Cutie - No Telemetry)",
+   "description": "AI chat features powered by Copilot",
+   "version": "0.50.0",
+   "build": "1",
