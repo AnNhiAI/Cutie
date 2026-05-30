@@ -87,7 +87,6 @@ def check_patch_available() -> bool:
         result = subprocess.run(
             ["patch", "--version"],
             capture_output=True, text=True,
-            shell=True,
         )
         return result.returncode == 0
     except FileNotFoundError:
@@ -109,7 +108,7 @@ def apply_single_patch(
 
     Returns True on success, False on failure.
     """
-    cmd = ["patch", "-p1", "--batch", "--forward"]
+    cmd = ["patch", "-p0", "--batch", "--forward"]
 
     if reverse:
         cmd.append("-R")
@@ -123,7 +122,6 @@ def apply_single_patch(
             cmd,
             capture_output=True, text=True,
             cwd=str(PROJECT_ROOT),
-            shell=True,
         )
     except FileNotFoundError:
         err("  ERROR: `patch` command is not available.")
