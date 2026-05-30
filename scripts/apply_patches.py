@@ -80,6 +80,62 @@ def find_all_patches() -> list[Path]:
     """Return a sorted list of all `.patch` files under `patches/`."""
     return sorted(PATCHES_DIR.rglob("*.patch"))
 
+def find_all_replacements() -> list[Path]:
+    """Return a sorted list of all replacement files (non-.patch files) under `patches/copilot/`."""
+    replacements = []
+    copilot_patches = PATCHES_DIR / "copilot"
+    if copilot_patches.exists():
+        for item in copilot_patches.rglob("*"):
+            if item.is_file() and not item.name.endswith(".patch"):
+                replacements.append(item)
+    return sorted(replacements)
+
+def resolve_replacement_target(replacement_path: Path) -> Path | None:
+    """
+    Given a replacement file path like:
+        patches/copilot/src/foo/bar.ts
+    
+    Return the corresponding original file path:
+        original/extensions/copilot/src/foo/bar.ts
+    """
+    try:
+        # Get relative path from patches/copilot/
+        copilot_patches = PATCHES_DIR / "copilot"
+        rel_path = replacement_path.relative_to(copilot_patches)
+        # Build target path
+        return PROJECT_ROOT / "original" / "extensions" / "copilot" / rel_path
+    except ValueError:
+        return None
+
+def apply_single_replacement(
+    replacement_path: Path,
+    *,
+    reverse: bool = False,
+    check: bool = False,
+) -> bool:
+    """
+    Replace a file by copying the replacement file over it.
+    
+    Returns True on success, False on failure.
+    """
+    if reverse:
+        # For reverse, we can't restore the original - skip
+        log(f"  ⚠ Cannot reverse file replacement")
+        return False
+    
+    if check:
+        # For check mode, just verify the target exists
+        return True
+    
+    try:
+        import shutil
+        shutil.copy2(replacement_path, resolve_replacement_target(replacement_path))
+        log(f"  ✓ Replaced")
+        return True
+    except Exception as e:
+        log(f"  ✗ Failed: {e}")
+        return False
+
 
 def check_patch_available() -> bool:
     """Verify that the `patch` command is available."""
@@ -108,7 +164,7 @@ def apply_single_patch(
 
     Returns True on success, False on failure.
     """
-    cmd = ["patch", "-p0", "--batch", "--forward"]
+    cmd = ["patch", "-p1", "--batch", "--forward", "--verbose"]
 
     if reverse:
         cmd.append("-R")
@@ -151,21 +207,24 @@ def apply_all_patches(
     verbose: bool = False,
 ) -> int:
     """
-    Apply/reverse/check all patches. Returns the number of failures.
+    Apply/reverse/check all patches and replacements. Returns the number of failures.
     """
     patches = find_all_patches()
+    replacements = find_all_replacements()
+    total_items = len(patches) + len(replacements)
 
-    if not patches:
-        log("No `.patch` files found under 'patches/'.")
+    if total_items == 0:
+        log("No `.patch` files or replacement files found under 'patches/'.")
         return 0
 
     action = "Checking" if check else ("Reversing" if reverse else "Applying")
-    log(f"{action} {len(patches)} patch(es) ...\n")
+    log(f"{action} {len(patches)} patch(es) and {len(replacements)} replacement(s) ...\n")
 
     failures = 0
     skipped = 0
     succeeded = 0
 
+    # Process patch files
     for patch_path in patches:
         stem = patch_path.stem
         log(f"  [{stem}]")
@@ -200,10 +259,44 @@ def apply_all_patches(
             failures += 1
         log("")
 
+    # Process replacement files
+    for replacement_path in replacements:
+        stem = replacement_path.stem
+        log(f"  [{stem}] (replacement)")
+
+        target = resolve_replacement_target(replacement_path)
+
+        if target is None:
+            skipped += 1
+            if verbose:
+                log(f"     skipped — could not resolve target path")
+            log("")
+            continue
+
+        if not target.exists():
+            log(f"     ⚠ Target not found: {target}")
+            log(f"     Skipping — run `python scripts/get_original.py` first?")
+            skipped += 1
+            log("")
+            continue
+
+        if verbose:
+            log(f"     replacement: {replacement_path}")
+            log(f"     target     : {target}")
+
+        ok = apply_single_replacement(
+            replacement_path,
+            reverse=reverse, check=check,
+        )
+        if ok:
+            succeeded += 1
+        else:
+            failures += 1
+        log("")
+
     # Summary
-    total = len(patches)
     log(f"── Summary ──────────────────────────────────")
-    log(f"  Total patches : {total}")
+    log(f"  Total items   : {total_items}")
     log(f"  Succeeded     : {succeeded}")
     log(f"  Skipped       : {skipped}")
     log(f"  Failed        : {failures}")
