@@ -94,4 +94,29 @@ python scripts/apply_patches.py --reverse
 
 ## License
 
-This project is a fork of VS Code and follows the original project's license (MIT).
+### Original Code
+The original VS Code Copilot extension code is licensed under the MIT License by Microsoft Corporation.
+See the original license at: https://github.com/microsoft/vscode/blob/main/LICENSE.txt
+
+### Modifications
+All modifications, patches, and customizations made by An Nhi AI (Sao Tin) are licensed under the Apache License 2.0.
+
+Copyright 2026 An Nhi AI - Sao Tin
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+## Credits
+
+- **Original Extension:** [Microsoft VS Code Copilot](https://github.com/microsoft/vscode/tree/main/extensions/copilot)
+- **Modifications by:** An Nhi AI - Sao Tin
+- **Project:** CutieChat - A community fork of GitHub Copilot Chat
