@@ -4,8 +4,9 @@
  {
 -  "name": "copilot-chat",
 -  "displayName": "GitHub Copilot Chat",
-+  "name": "copilot-chat-cutie",
-+  "displayName": "GitHub Copilot Chat (Cutie - No Telemetry)",
-   "description": "AI chat features powered by Copilot",
+-  "description": "AI chat features powered by Copilot",
++  "name": "cutie-chat",
++  "displayName": "AnNhiAI CutieChat",
++  "description": "CutieChat is a community fork of GitHub Copilot Chat.",
    "version": "0.50.0",
    "build": "1",
