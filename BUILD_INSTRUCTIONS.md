@@ -28,7 +28,10 @@ python scripts/get_original.py
 # Bước 3: Patch package.json
 python scripts/patch_package_json.py
 
-# Bước 4: Rename identifiers (bao gồm chat participant names)
+# Bước 4: Add sidebar view (thêm Cutie Chat vào sidebar)
+python scripts/add_sidebar_view.py
+
+# Bước 5: Rename identifiers (bao gồm chat participant names)
 python scripts/rename_identifiers.py
 ```
 
