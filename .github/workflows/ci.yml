@@ -48,6 +48,9 @@ jobs:
       - name: Apply all patches
         run: python scripts/apply_patches.py --yes
 
+      - name: Patch package.json
+        run: python scripts/patch_package_json.py
+
       - name: Rename identifiers to avoid conflicts
         run: python scripts/rename_identifiers.py
 
@@ -75,6 +78,9 @@ jobs:
 
       - name: Apply all patches
         run: python scripts/apply_patches.py --yes
+
+      - name: Patch package.json
+        run: python scripts/patch_package_json.py
 
       - name: Rename identifiers to avoid conflicts
         run: python scripts/rename_identifiers.py

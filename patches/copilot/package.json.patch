@@ -8,8 +8,16 @@
 +  "name": "cutie-chat",
 +  "displayName": "AnNhiAI CutieChat",
 +  "description": "CutieChat is a community fork of GitHub Copilot Chat.",
-   "version": "0.50.0",
+   "version": "0.51.0",
    "build": "1",
+   "completionsCoreVersion": "1.378.1799",
+@@ -10,7 +10,7 @@
+   "buildType": "dev",
+-  "publisher": "GitHub",
++  "publisher": "AnNhiAI",
+   "homepage": "https://github.com/features/copilot?editor=vscode",
+   "license": "SEE LICENSE IN LICENSE.txt",
+   "repository": {
 @@ -24,7 +24,7 @@
    "pricing": "Trial",
    "engines": {
