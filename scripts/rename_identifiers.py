@@ -85,6 +85,15 @@ def main():
         if section in data:
             data[section] = rename_identifiers_in_value(data[section])
     
+    # Fix view name "Chat" to "Cutie" to avoid confusion with built-in Copilot
+    if 'contributes' in data and 'views' in data['contributes']:
+        views = data['contributes']['views']
+        if 'cutie' in views:
+            for view in views['cutie']:
+                if view.get('id') == 'cutie.chatView' and view.get('name') == 'Chat':
+                    view['name'] = 'Cutie'
+                    print("  ✓ Renamed chat view name from 'Chat' to 'Cutie'")
+    
     print(f"Writing modified package.json...")
     with open(package_json_path, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
