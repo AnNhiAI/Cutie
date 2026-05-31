@@ -1,11 +1,13 @@
 # Hướng dẫn Build Extension
 
-## Thay đổi mới nhất
-Script `rename_identifiers.py` đã được cập nhật để rename chat participant display names:
-- "GitHubCopilot" → "Cutie"  
-- "GitHub Copilot" → "Cutie"
+## Thay đổi mới nhất (2026-05-31)
+Script `rename_identifiers.py` đã được cập nhật để:
+1. Rename chat participant display names: "GitHubCopilot" / "GitHub Copilot" → "Cutie"
+2. **Rename view name từ "Chat" thành "Cutie"** để tránh nhầm lẫn với Copilot built-in trên sidebar
 
-Điều này sẽ làm cho chat interface hiển thị "Cutie" thay vì "GitHub Copilot".
+Điều này sẽ làm cho:
+- Chat interface hiển thị "Cutie" thay vì "GitHub Copilot"
+- Sidebar hiển thị view "Cutie" thay vì "Chat" (tránh conflict với Copilot built-in)
 
 ## Cách build extension
 
