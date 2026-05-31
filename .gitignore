@@ -56,3 +56,4 @@ original/
 
 # Generated patch files
 patches/*.patch
+patched-copilot/

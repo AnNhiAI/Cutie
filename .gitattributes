@@ -4,6 +4,7 @@
 # Patch files
 *.patch text
 *.ts.patch linguist-language=TypeScript
+*.json.patch linguist-language=JSON
 
 # Source code
 *.ts text diff=typescript

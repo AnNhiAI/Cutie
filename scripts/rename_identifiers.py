@@ -10,12 +10,17 @@ import json
 import re
 from pathlib import Path
 
-def rename_identifiers_in_value(value, depth=0):
+def rename_identifiers_in_value(value, depth=0, key_name=''):
     """Recursively rename identifiers in JSON values."""
     if isinstance(value, str):
         # Skip URLs and certain patterns - check for URL schemes and img.shields.io
         if 'http://' in value or 'https://' in value or 'github.com' in value or 'img.shields.io' in value:
             return value
+        
+        # Replace display names for chat participants
+        if key_name in ['name', 'fullName']:
+            if value == 'GitHubCopilot' or value == 'GitHub Copilot':
+                return 'Cutie'
         
         # Replace translation references like %github.copilot.xxx%
         value = re.sub(r'%github\.copilot\.', r'%cutie.', value)
@@ -45,10 +50,10 @@ def rename_identifiers_in_value(value, depth=0):
                 new_key = k.replace('copilot-chat', 'cutie-chat')
             elif k.startswith('copilot.'):
                 new_key = k.replace('copilot.', 'cutie.')
-            new_dict[new_key] = rename_identifiers_in_value(v, depth+1)
+            new_dict[new_key] = rename_identifiers_in_value(v, depth+1, k)
         return new_dict
     elif isinstance(value, list):
-        return [rename_identifiers_in_value(item, depth+1) for item in value]
+        return [rename_identifiers_in_value(item, depth+1, key_name) for item in value]
     else:
         return value
 
